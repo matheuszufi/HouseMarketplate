@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import {ReactComponent as ArrowRightIcon} from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 
-function SignIn() {
+function SignUp() {
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
@@ -67,4 +67,4 @@ function SignIn() {
     )
 }
 
-export default SignIn
+export default SignUp
