@@ -8,18 +8,17 @@ import { async, FirebaseError } from "@firebase/util"
 import ListingItem from "../components/ListingItem"
 
 
-function Offers() {
+function Category() {
     const [listings, setListings] = useState(null)
     const [loading, setLoading] = useState(true)
 
     const params = useParams()
     
     useEffect(() => {
-        const fetchListings = async () => {
-
+        const fetchListings = async() => {
             try {
                 const listingsRef = collection(db, 'listings')
-                const q = query(listingsRef, where('offer', '==', true), orderBy('timestamp', 'desc'),
+                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'),
                 limit(10))
                 // firebase.get().where().orderBy
 
@@ -44,15 +43,16 @@ function Offers() {
         }
 
         fetchListings()
-    }, [])
+    }, [params.categoryName])
 
 
   return (
     <div className="category">
         <header>
             <p className="pageHeader">
-                Offers
-            </p>    
+                {params.categoryName === 'rent' ? 'Places for rent' : 'Places for sale'}
+            </p>
+         
         </header>
 
         {loading ? (<Spinner />) : listings && listings.length > 0 ? (
@@ -67,8 +67,7 @@ function Offers() {
         </>
         ) : (<p>No listings for {params.categoryName}</p>)}
     </div>
-
   )
 }
 
-export default Offers
+export default Category
